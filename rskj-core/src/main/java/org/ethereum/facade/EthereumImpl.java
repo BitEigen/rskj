@@ -87,6 +87,10 @@ public class EthereumImpl implements Ethereum {
         if (gasPriceTracker.isFeeMarketWorking()) {
             return gasPriceTracker.getGasPrice();
         }
+        // mock gasPrice for regtest
+        if (blockchain.getBestBlock().getMinimumGasPrice().asBigInteger().doubleValue() == 0) {
+            return new Coin(BigDecimal.valueOf(65164000).toBigInteger());
+        }
         double estimatedGasPrice = blockchain.getBestBlock().getMinimumGasPrice().asBigInteger().doubleValue() * minGasPriceMultiplier;
         return new Coin(BigDecimal.valueOf(estimatedGasPrice).toBigInteger());
     }
