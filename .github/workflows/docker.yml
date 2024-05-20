@@ -19,7 +19,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: rsksmart/rskj
+          images: ${{ format('{0}/rskj', secrets.DOCKERHUB_USERNAME) }}
           tags: |
             type=ref,event=branch
             type=ref,event=tag
